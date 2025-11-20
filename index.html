@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Minting App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 380px;
+            background: rgba(15, 15, 35, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .fid {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .about-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .about-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nft-image {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .free-mint {
+            color: #ff8a00;
+        }
+
+        .limited-time {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-size: 18px;
+            margin: 15px 0;
+            letter-spacing: 1px;
+        }
+
+        .join-button {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 10px 0 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .join-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 114, 255, 0.6);
+        }
+
+        .mint-section {
+            margin: 20px 0;
+        }
+
+        .mint-count {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            border-radius: 6px;
+            width: 15.8%; /* 88/555 = ~15.8% */
+        }
+
+        .mint-button {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .mint-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .timer {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .countdown {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00c6ff;
+            margin-top: 5px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(15, 15, 35, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff8a00;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">NFT</div>
+                <div class="fid">FID:8888</div>
+            </div>
+            <button class="about-btn" id="aboutBtn">About</button>
+        </div>
+        
+        <img src="https://iili.io/f2GfIn4.jpg" alt="NFT" class="nft-image">
+        
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">MINT PRIZE:</div>
+                <div class="info-value free-mint">FREE MINT</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">SUPPLY:</div>
+                <div class="info-value">555</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">TIME:</div>
+                <div class="info-value">21 NOV 06:00 UTC</div>
+            </div>
+        </div>
+        
+        <div class="limited-time">LIMITED TIME ONLY</div>
+        
+        <button class="join-button">Join Whitelist</button>
+        
+        <div class="mint-section">
+            <div class="mint-count">MINT: 88/555</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <button class="mint-button" id="mintButton" disabled>MINT</button>
+            <div class="timer">
+                <div>Time Remaining:</div>
+                <div class="countdown" id="countdown">00:00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">About This NFT</div>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This is an exclusive NFT collection with limited supply of only 555 tokens.</p>
+                <p>Each NFT is uniquely designed and offers special benefits to holders.</p>
+                <p>The minting process is free for whitelisted members during the limited time period.</p>
+                <p>Join our community to get early access and special privileges!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Countdown timer
+        function updateCountdown() {
+            const targetDate = new Date('November 21, 2025 06:00:00 UTC').getTime();
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            const mintButton = document.getElementById('mintButton');
+            
+            if (timeLeft <= 0) {
+                document.getElementById('countdown').innerHTML = "MINTING LIVE!";
+                mintButton.disabled = false;
+                mintButton.innerHTML = "MINT NOW";
+                return;
+            }
+            
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').innerHTML = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+            mintButton.disabled = true;
+            mintButton.innerHTML = "WAIT FOR TIMER";
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+        
+        // Modal functionality
+        const aboutBtn = document.getElementById('aboutBtn');
+        const aboutModal = document.getElementById('aboutModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        aboutBtn.addEventListener('click', function() {
+            aboutModal.style.display = 'flex';
+        });
+        
+        closeModal.addEventListener('click', function() {
+            aboutModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === aboutModal) {
+                aboutModal.style.display = 'none';
+            }
+        });
+        
+        // Button interactions
+        document.querySelector('.join-button').addEventListener('click', function() {
+            alert('Joining Whitelist... Please connect your wallet.');
+        });
+        
+        document.getElementById('mintButton').addEventListener('click', function() {
+            if (!this.disabled) {
+                alert('Minting your NFT... Transaction in progress.');
+            }
+        });
+    </script>
+</body>
+</html>
