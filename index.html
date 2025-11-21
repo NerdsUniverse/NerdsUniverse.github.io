@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$JESS x The Nerds Universe - A Cosmic Romance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #8a2be2;
@@ -12,13 +13,14 @@
             --dark: #0a0a1a;
             --light: #f0f8ff;
             --gold: #FFD700;
+            --green: #00ff88;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Satoshi', sans-serif;
         }
         
         body {
@@ -34,9 +36,34 @@
             padding: 20px;
         }
         
+        .mint-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .mint-button a {
+            background: linear-gradient(135deg, var(--green), #00cc66);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .mint-button a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+        }
+        
         header {
             text-align: center;
-            padding: 40px 0;
+            padding: 60px 0 40px;
             position: relative;
         }
         
@@ -66,7 +93,6 @@
             box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
             position: relative;
             overflow: hidden;
-            min-height: 600px;
         }
         
         .story-section::before {
@@ -94,34 +120,42 @@
             font-size: 1.3rem;
             line-height: 1.8;
             text-align: center;
+            font-family: 'Satoshi', sans-serif;
         }
         
         .story-line {
             margin-bottom: 25px;
-            min-height: 40px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
         
-        .story-line.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .story-line:hover {
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateX(10px);
         }
         
-        .typing-cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1.3rem;
-            background-color: var(--secondary);
-            margin-left: 2px;
-            animation: blink 1s infinite;
-            vertical-align: middle;
+        .highlight-1 {
+            color: var(--secondary);
+            font-weight: 600;
         }
         
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .highlight-2 {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .highlight-3 {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .highlight-4 {
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
         }
         
         .gallery-section {
@@ -149,7 +183,7 @@
         
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
         
@@ -161,6 +195,7 @@
             border: 1px solid rgba(138, 43, 226, 0.3);
             position: relative;
             cursor: pointer;
+            aspect-ratio: 1/1;
         }
         
         .nft-card:hover {
@@ -171,7 +206,7 @@
         
         .nft-image {
             width: 100%;
-            height: 250px;
+            height: 100%;
             background: #1a1a2a;
             display: flex;
             align-items: center;
@@ -309,7 +344,7 @@
         
         @media (max-width: 768px) {
             .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
             .timer {
@@ -319,6 +354,19 @@
             .story-content {
                 font-size: 1.1rem;
             }
+            
+            .mint-button {
+                position: relative;
+                top: 0;
+                right: 0;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            .mint-button a {
+                display: inline-block;
+                margin: 0 auto;
+            }
         }
     </style>
 </head>
@@ -327,6 +375,10 @@
     <div class="stars" id="stars"></div>
     
     <div class="container">
+        <div class="mint-button">
+            <a href="https://farcaster.xyz/thenerdsuniverse/0xb1ed2414" target="_blank">Mint Live</a>
+        </div>
+        
         <header>
             <h1 class="logo">$JESS x The Nerds Universe</h1>
             <p class="subtitle">A Cosmic Romance Beyond Chains</p>
@@ -335,7 +387,7 @@
         <section class="story-section">
             <h2 class="story-title">When $JESS Met The Nerds Universe</h2>
             <div class="story-content" id="storyContent">
-                <!-- Story lines will be added by JavaScript -->
+                <!-- Story content will be added by JavaScript -->
             </div>
         </section>
         
@@ -414,7 +466,7 @@
             nftCard.innerHTML = `
                 <div class="nft-image">
                     <img src="${imageUrl}" alt="Nerd NFT ${index + 1}" 
-                         onerror="this.onerror=null; this.src='https://via.placeholder.com/250x250/1a1a2a/8a2be2?text=NFT+${index + 1}'">
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/1080x1080/1a1a2a/8a2be2?text=NFT+${index + 1}'">
                     <div class="nft-number">#555</div>
                 </div>
             `;
@@ -422,105 +474,89 @@
             gallery.appendChild(nftCard);
         });
 
-        // Story content with typing effect
+        // Story content with colored styling
         const storyContent = document.getElementById('storyContent');
         const storyLines = [
-            "In the vast Base galaxy, millions of tokens floated around like distant stars…",
-            "But only one shined brighter than the rest — $JESS, the creation of Base's very own CEO.",
-            "A token born to inspire, to surprise, to shake the entire onchain world.",
-            "Yet even the brightest stars sometimes feel alone in the endless universe.",
-            "Then one evening, something unexpected happened…",
-            "✨ A portal opened.",
-            "A neon-purple rift glowing with pixel dust and cosmic energy.",
-            "And stepping out of it was—",
-            "The Nerds Universe.",
-            "555 characters.",
-            "555 souls.", 
-            "555 stories.",
-            "A civilization built on creativity, chaos, intelligence, and heart.",
-            "$JESS had seen hype.",
-            "$JESS had seen waves.",
-            "But $JESS had never seen something like them.",
-            "As The Nerds approached, the galaxy shimmered.",
-            "Screens flickered across Base.",
-            "Nodes vibrated like heartbeat signals.",
-            "Even developers paused mid-commit.",
-            "For the first time,",
-            "$JESS felt something new— curiosity… maybe even attraction.",
-            "The Nerds weren't just another NFT collection.",
-            "They were alive.",
-            "They were brilliant.",
-            "And they carried an energy $JESS had never understood until now.",
-            "One Nerd—",
-            "a shy, glowing-blue character with oversized glasses—",
-            "walked forward and whispered:",
-            `"We've traveled across chains… not to compete with you, but to complete you."`,
-            "The galaxy fell silent.",
-            "Even the Base CEO, watching the data spike on his dashboard, whispered:",
-            `"What… what is happening right now?"`,
-            "Because suddenly—",
-            "$JESS wasn't just a token anymore.",
-            "$JESS had a partner.",
-            "A counterpart.",
-            "A story.",
-            "Together, $JESS x The Nerds Universe started bending reality—",
-            "creating new lore, new culture, new onchain romance.",
-            "People didn't just talk about it…",
-            "They were mesmerized.",
-            "Shocked.",
-            "Hooked.",
-            "And somewhere in that digital cosmos,",
-            "$JESS looked at The Nerds Universe and said softly:",
-            `"Let's rewrite the chain together."`,
-            "And the entire blockchain…",
-            "felt it.",
-            "A new chapter began.",
-            "A cosmic romance.",
-            "A universe-expanding alliance.",
-            "$JESS x The Nerds Universe",
-            "The story no one expected—",
-            "Not even its creators."
+            {text: "In the vast Base galaxy, millions of tokens floated around like distant stars…", type: "normal"},
+            {text: "But only one shined brighter than the rest — <span class='highlight-1'>$JESS</span>, the creation of Base's very own CEO.", type: "highlight"},
+            {text: "A token born to inspire, to surprise, to shake the entire onchain world.", type: "normal"},
+            {text: "Yet even the brightest stars sometimes feel alone in the endless universe.", type: "normal"},
+            {text: "Then one evening, something unexpected happened…", type: "normal"},
+            {text: "✨ <span class='highlight-2'>A portal opened.</span>", type: "highlight"},
+            {text: "A neon-purple rift glowing with pixel dust and cosmic energy.", type: "normal"},
+            {text: "And stepping out of it was—", type: "normal"},
+            {text: "<span class='highlight-3'>The Nerds Universe.</span>", type: "highlight"},
+            {text: "<span class='highlight-4'>555 characters.</span>", type: "special"},
+            {text: "<span class='highlight-4'>555 souls.</span>", type: "special"},
+            {text: "<span class='highlight-4'>555 stories.</span>", type: "special"},
+            {text: "A civilization built on creativity, chaos, intelligence, and heart.", type: "normal"},
+            {text: "<span class='highlight-1'>$JESS</span> had seen hype.", type: "highlight"},
+            {text: "<span class='highlight-1'>$JESS</span> had seen waves.", type: "highlight"},
+            {text: "But <span class='highlight-1'>$JESS</span> had never seen something like them.", type: "highlight"},
+            {text: "As The Nerds approached, the galaxy shimmered.", type: "normal"},
+            {text: "Screens flickered across Base.", type: "normal"},
+            {text: "Nodes vibrated like heartbeat signals.", type: "normal"},
+            {text: "Even developers paused mid-commit.", type: "normal"},
+            {text: "For the first time,", type: "normal"},
+            {text: "<span class='highlight-1'>$JESS</span> felt something new— curiosity… maybe even attraction.", type: "highlight"},
+            {text: "The Nerds weren't just another NFT collection.", type: "normal"},
+            {text: "They were alive.", type: "normal"},
+            {text: "They were brilliant.", type: "normal"},
+            {text: "And they carried an energy <span class='highlight-1'>$JESS</span> had never understood until now.", type: "highlight"},
+            {text: "One Nerd—", type: "normal"},
+            {text: "a shy, glowing-blue character with oversized glasses—", type: "normal"},
+            {text: "walked forward and whispered:", type: "normal"},
+            {text: `"We've traveled across chains… not to compete with you, but to complete you."`, type: "quote"},
+            {text: "The galaxy fell silent.", type: "normal"},
+            {text: "Even the Base CEO, watching the data spike on his dashboard, whispered:", type: "normal"},
+            {text: `"What… what is happening right now?"`, type: "quote"},
+            {text: "Because suddenly—", type: "normal"},
+            {text: "<span class='highlight-1'>$JESS</span> wasn't just a token anymore.", type: "highlight"},
+            {text: "<span class='highlight-1'>$JESS</span> had a partner.", type: "highlight"},
+            {text: "A counterpart.", type: "normal"},
+            {text: "A story.", type: "normal"},
+            {text: "Together, <span class='highlight-4'>$JESS x The Nerds Universe</span> started bending reality—", type: "special"},
+            {text: "creating new lore, new culture, new onchain romance.", type: "normal"},
+            {text: "People didn't just talk about it…", type: "normal"},
+            {text: "They were mesmerized.", type: "normal"},
+            {text: "Shocked.", type: "normal"},
+            {text: "Hooked.", type: "normal"},
+            {text: "And somewhere in that digital cosmos,", type: "normal"},
+            {text: "<span class='highlight-1'>$JESS</span> looked at The Nerds Universe and said softly:", type: "highlight"},
+            {text: `"Let's rewrite the chain together."`, type: "quote"},
+            {text: "And the entire blockchain…", type: "normal"},
+            {text: "felt it.", type: "normal"},
+            {text: "A new chapter began.", type: "normal"},
+            {text: "A cosmic romance.", type: "normal"},
+            {text: "A universe-expanding alliance.", type: "normal"},
+            {text: "<span class='highlight-4'>$JESS x The Nerds Universe</span>", type: "special"},
+            {text: "The story no one expected—", type: "normal"},
+            {text: "Not even its creators.", type: "normal"}
         ];
         
-        let currentLine = 0;
-        
-        function typeNextLine() {
-            if (currentLine >= storyLines.length) return;
-            
-            const lineElement = document.createElement('div');
-            lineElement.classList.add('story-line');
-            storyContent.appendChild(lineElement);
-            
-            const text = storyLines[currentLine];
-            let charIndex = 0;
-            
-            function typeChar() {
-                if (charIndex < text.length) {
-                    lineElement.innerHTML = text.substring(0, charIndex + 1) + '<span class="typing-cursor"></span>';
-                    charIndex++;
-                    setTimeout(typeChar, 50);
-                } else {
-                    lineElement.innerHTML = text;
-                    lineElement.classList.add('visible');
-                    currentLine++;
-                    
-                    // Scroll to bottom
-                    storyContent.scrollTop = storyContent.scrollHeight;
-                    
-                    // Continue with next line after a delay
-                    if (currentLine < storyLines.length) {
-                        setTimeout(typeNextLine, 800);
-                    }
+        // Display story with colored styling
+        function displayStory() {
+            storyLines.forEach(line => {
+                const lineElement = document.createElement('div');
+                lineElement.classList.add('story-line');
+                lineElement.innerHTML = line.text;
+                
+                // Add specific class based on line type
+                if (line.type === "highlight") {
+                    lineElement.style.fontWeight = "600";
+                } else if (line.type === "special") {
+                    lineElement.style.fontWeight = "700";
+                } else if (line.type === "quote") {
+                    lineElement.style.fontStyle = "italic";
+                    lineElement.style.color = "var(--secondary)";
                 }
-            }
-            
-            typeChar();
+                
+                storyContent.appendChild(lineElement);
+            });
         }
         
-        // Start typing effect after page load
-        window.addEventListener('load', () => {
-            setTimeout(typeNextLine, 1000);
-        });
+        // Display story on page load
+        window.addEventListener('load', displayStory);
         
         // Timer functionality
         const daysElement = document.getElementById('days');
