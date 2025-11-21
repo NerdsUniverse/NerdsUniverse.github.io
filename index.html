@@ -3,400 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Nerds Universe</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>$JESS x The Nerds Universe - A Cosmic Romance</title>
     <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #00ffff;
+            --accent: #ff00ff;
+            --dark: #0a0a1a;
+            --light: #f0f8ff;
+            --gold: #FFD700;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a3a 100%);
+            color: var(--light);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
-
-        .container {
-            width: 100%;
-            max-width: 380px;
-            background: rgba(15, 15, 35, 0.9);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        
+        header {
             text-align: center;
+            padding: 40px 0;
             position: relative;
         }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        
         .logo {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(90deg, #ff8a00, #e52e71);
-            border-radius: 50%;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 30px;
+        }
+        
+        .story-section {
+            background: rgba(10, 10, 26, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+        }
+        
+        .story-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .story-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .story-content {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+        
+        .story-line {
+            margin-bottom: 25px;
+            min-height: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .story-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.3rem;
+            background-color: var(--secondary);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .gallery-section {
+            margin: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--secondary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .nft-card {
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .nft-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
+            border-color: var(--primary);
+        }
+        
+        .nft-image {
+            width: 100%;
+            height: 250px;
+            background: #1a1a2a;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .fid {
-            font-size: 14px;
-            color: #aaa;
-        }
-
-        .about-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 8px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .about-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .nft-image {
-            width: 100%;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .info-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 12px;
-        }
-
-        .info-label {
-            font-size: 12px;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .free-mint {
-            color: #ff8a00;
-        }
-
-        .limited-time {
-            background: linear-gradient(90deg, #ff8a00, #e52e71);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            font-size: 18px;
-            margin: 15px 0;
-            letter-spacing: 1px;
-        }
-
-        .join-button {
-            background: linear-gradient(90deg, #00c6ff, #0072ff);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 30px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            margin: 10px 0 20px 0;
-            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .join-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 114, 255, 0.6);
-        }
-
-        .mint-section {
-            margin: 20px 0;
-        }
-
-        .mint-count {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .progress-bar {
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
+            position: relative;
             overflow: hidden;
-            margin-bottom: 20px;
         }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ff8a00, #e52e71);
-            border-radius: 6px;
-            width: 15.8%; /* 88/555 = ~15.8% */
-        }
-
-        .mint-button {
-            background: linear-gradient(90deg, #ff8a00, #e52e71);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 15px;
-            font-size: 20px;
-            font-weight: 700;
-            cursor: pointer;
+        
+        .nft-image img {
             width: 100%;
-            box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            height: 100%;
+            object-fit: cover;
         }
-
-        .mint-button:disabled {
-            background: #555;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        
+        .nft-number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--gold);
         }
-
+        
+        .timer-section {
+            background: rgba(10, 10, 26, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+        }
+        
+        .timer-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
         .timer {
-            font-size: 14px;
-            color: #aaa;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
         }
-
-        .countdown {
-            font-size: 18px;
-            font-weight: 700;
-            color: #00c6ff;
+        
+        .timer-unit {
+            background: rgba(20, 20, 40, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 100px;
+            border: 1px solid var(--secondary);
+        }
+        
+        .timer-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .timer-label {
+            font-size: 0.9rem;
+            color: var(--secondary);
             margin-top: 5px;
         }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
+        
+        .portal-button {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: not-allowed;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+        
+        .portal-button.active {
+            cursor: pointer;
+            opacity: 1;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+        }
+        
+        .portal-button.active:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.9);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .cosmic-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
         }
-
-        .modal-content {
-            background: rgba(15, 15, 35, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+star');
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starsContainer.appendChild(star);
         }
+        
+        // NFT image URLs
+        const nftImages = [
+            "https://iili.io/f3A0h7a.jpg",
+            "https://iili.io/f3A0jkJ.jpg", 
+            "https://iili.io/f3A0wmv.jpg",
+            "https://iili.io/f3A0OIR.jpg",
+            "https://iili.io/f3A0kLN.jpg",
+            "https://iili.io/f3A0UrX.jpg",
+            "https://iili.io/f3A0r2n.jpg",
+            "https://iili.io/f3A047s.jpg",
+            "https://iili.io/f3A0sI4.jpg",
+            "https://iili.io/f3A0DE7.jpg",
+            "https://iili.io/f3A0b49.jpg"
+        ];
+        
+        // Generate NFT gallery
+        const gallery = document.getElementById('nftGallery');
+        
+        nftImages.forEach((imageUrl, index) => {
+            const nftCard = document.createElement('div');
+            nftCard.classList.add('nft-card');
+            
+            nftCard.innerHTML = `
+                <div class="nft-image">
+                    <img src="${imageUrl}" alt="Nerd NFT ${index + 1}" 
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/250x250/1a1a2a/8a2be2?text=NFT+${index + 1}'">
+                    <div class="nft-number">#555</div>
+                </div>
+            `;
+            
+            gallery.appendChild(nftCard);
+        });
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ff8a00;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: #aaa;
-            font-size: 24px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #fff;
-        }
-
-        .modal-body {
-            text-align: left;
-            line-height: 1.6;
-        }
-
-        .modal-body p {
-            margin-bottom: 15px;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
+        // Story content with typing effect
+        const storyContent = document.getElementById('storyContent');
+        const storyLines = [
+            "In the vast Base galaxy, millions of tokens floated around like distant stars…",
+            "But only one shined brighter than the rest — $JESS, the creation of Base's very own CEO.",
+            "A token born to inspire, to surprise, to shake the entire onchain world.",
+            "Yet even the brightest stars sometimes feel alone in the endless universe.",
+            "Then one evening, something unexpected happened…",
+            "✨ A portal opened.",
+            "A neon-purple rift glowing with pixel dust and cosmic energy.",
+            "And stepping out of it was—",
+            "The Nerds Universe.",
+            "555 characters.",
+            "555 souls.", 
+            "555 stories.",
+            "A civilization built on creativity, chaos, intelligence, and heart.",
+            "$JESS had seen hype.",
+            "$JESS had seen waves.",
+            "But $JESS had never seen something like them.",
+            "As The Nerds approached, the galaxy shimmered.",
+            "Screens flickered across Base.",
+            "Nodes vibrated like heartbeat signals.",
+            "Even developers paused mid-commit.",
+            "For the first time,",
+            "$JESS felt something new— curiosity… maybe even attraction.",
+            "The Nerds weren't just another NFT collection.",
+            "They were alive.",
+            "They were brilliant.",
+            "And they carried an energy $JESS had never understood until now.",
+            "One Nerd—",
+            "a shy, glowing-blue character with oversized glasses—",
+            "walked forward and whispered:",
+            `"We've traveled across chains… not to compete with you, but to complete you."`,
+            "The galaxy fell silent.",
+            "Even the Base CEO, watching the data spike on his dashboard, whispered:",
+            `"What… what is happening right now?"`,
+            "Because suddenly—",
+            "$JESS wasn't just a token anymore.",
+            "$JESS had a partner.",
+            "A counterpart.",
+            "A story.",
+            "Together, $JESS x The Nerds Universe started bending reality—",
+            "creating new lore, new culture, new onchain romance.",
+            "People didn't just talk about it…",
+            "They were mesmerized.",
+            "Shocked.",
+            "Hooked.",
+            "And somewhere in that digital cosmos,",
+            "$JESS looked at The Nerds Universe and said softly:",
+            `"Let's rewrite the chain together."`,
+            "And the entire blockchain…",
+            "felt it.",
+            "A new chapter began.",
+            "A cosmic romance.",
+            "A universe-expanding alliance.",
+            "$JESS x The Nerds Universe",
+            "The story no one expected—",
+            "Not even its creators."
+        ];
+        
+        let currentLine = 0;
+        
+        function typeNextLine() {
+            if (currentLine >= storyLines.length) return;
+            
+            const lineElement = document.createElement('div');
+            lineElement.classList.add('story-line');
+            storyContent.appendChild(lineElement);
+            
+            const text = storyLines[currentLine];
+            let charIndex = 0;
+            
+            function typeChar() {
+                if (charIndex < text.length) {
+                    lineElement.innerHTML = text.substring(0, charIndex + 1) + '<span class="typing-cursor"></span>';
+                    charIndex++;
+                    setTimeout(typeChar, 50);
+                } else {
+                    lineElement.innerHTML = text;
+                    lineElement.classList.add('visible');
+                    currentLine++;
+                    
+                    // Scroll to bottom
+                    storyContent.scrollTop = storyContent.scrollHeight;
+                    
+                    // Continue with next line after a delay
+                    if (currentLine < storyLines.length) {
+                        setTimeout(typeNextLine, 800);
+                    }
+                }
             }
             
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
+            typeChar();
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="logo-section">
-                <div class="logo">NFT</div>
-                <div class="fid">FID:8888</div>
-            </div>
-            <button class="about-btn" id="aboutBtn">About</button>
-        </div>
         
-        <img src="https://iili.io/f2WJwIj.gif" alt="NFT" class="nft-image">
+        // Start typing effect after page load
+        window.addEventListener('load', () => {
+            setTimeout(typeNextLine, 1000);
+        });
         
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">MINT PRIZE:</div>
-                <div class="info-value free-mint">0.0016 $ETH</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">SUPPLY:</div>
-                <div class="info-value">555</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">TIME:</div>
-                <div class="info-value">21 NOV 06:00 UTC</div>
-            </div>
-        </div>
+        // Timer functionality
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+        const portalBtn = document.getElementById('portalBtn');
         
-        <div class="limited-time">LIMITED TIME ONLY</div>
+        // Set the target date (15 days from now)
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 15);
         
-        <button class="join-button">Join Whitelist</button>
-        
-        <div class="mint-section">
-            <div class="mint-count">MINT: 88/555</div>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-            <button class="mint-button" id="mintButton" disabled>MINT</button>
-            <div class="timer">
-                <div>Time Remaining:</div>
-                <div class="countdown" id="countdown">00:00:00</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- About Modal -->
-    <div class="modal" id="aboutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">About This NFT</div>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>The Nerds Universe is a collection of 555 unique and diverse NFTs that celebrate</p>
-                <p>the nerdy culture and its subgenres. Each Nerd is a digital character with a distinct personality,</p>
-                <p>and backstory, inspired by various fandoms, hobbies, and interests.</p>
-                <p>The Nerds Universe is not just a collection of art, but a community of passionate and creative individuals who share a common vision of empowering the nerdy identity.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Countdown timer
-        function updateCountdown() {
-            const targetDate = new Date('November 21, 2025 06:00:00 UTC').getTime();
-            const now = new Date().getTime();
-            const timeLeft = targetDate - now;
+        function updateTimer() {
+            const now = new Date();
+            const timeRemaining = targetDate - now;
             
-            const mintButton = document.getElementById('mintButton');
-            
-            if (timeLeft <= 0) {
-                document.getElementById('countdown').innerHTML = "MINTING LIVE!";
-                mintButton.disabled = false;
-                mintButton.innerHTML = "MINT NOW";
+            if (timeRemaining <= 0) {
+                // Timer finished
+                daysElement.textContent = '00';
+                hoursElement.textContent = '00';
+                minutesElement.textContent = '00';
+                secondsElement.textContent = '00';
+                
+                portalBtn.textContent = 'Enter The Nerds Universe Portal';
+                portalBtn.classList.add('active');
+                portalBtn.disabled = false;
+                
                 return;
             }
             
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
             
-            document.getElementById('countdown').innerHTML = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-            mintButton.disabled = true;
-            mintButton.innerHTML = "WAIT FOR TIMER";
+            daysElement.textContent = days.toString().padStart(2, '0');
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
         }
         
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initial call
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+        updateTimer(); // Initial call
         
-        // Modal functionality
-        const aboutBtn = document.getElementById('aboutBtn');
-        const aboutModal = document.getElementById('aboutModal');
-        const closeModal = document.getElementById('closeModal');
-        
-        aboutBtn.addEventListener('click', function() {
-            aboutModal.style.display = 'flex';
-        });
-        
-        closeModal.addEventListener('click', function() {
-            aboutModal.style.display = 'none';
-        });
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === aboutModal) {
-                aboutModal.style.display = 'none';
-            }
-        });
-        
-        // Button interactions
-        document.querySelector('.join-button').addEventListener('click', function() {
-            alert('Joining Whitelist... Please connect your wallet.');
-        });
-        
-        document.getElementById('mintButton').addEventListener('click', function() {
+        // Portal button click handler
+        portalBtn.addEventListener('click', function() {
             if (!this.disabled) {
-                alert('Minting your NFT... Transaction in progress.');
+                alert('Welcome to The Nerds Universe Portal! The adventure begins now...');
+                // In a real implementation, this would redirect to the actual portal
             }
         });
     </script>
